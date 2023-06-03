@@ -1,19 +1,42 @@
-# lang-jam
+# MakeStringsDoThings
 
-### Welcome!
-- The theme to the jam will be announced on the [discord codex server](https://discord.gg/KwnGX8P) 2023-06-02
-- look for the newest jam here [itch.io](https://itch.io/jam/lang-jam)
+# How To Build
+You need basic C build tools. You should have everything needed, but if you do come into issues run the following on debian.
+`sudo apt-get install build-essential`
+on windows you'll need gnu make and gcc.
+To build, go into the lang/ directory and run
+`make all` to build and run
+or
+`make build` to just build the project.
+# Idea
 
-# Instructions
+Without numbers, how do you do anything?
+Consider the following string.
+"ABC" 
+there are 3 characters, this denotes the numerical value of 3
 
-Here are some instructions on how to make a lang jam submission.
-1. Fork this project.
-2. Create a new folder with a titled of your language
-3. Place your project in side or start creating your project.
-4. Place a `README.md` with instructions on how to compile or run the project in the folder.
-5. When ready create a Pull Request and submit your language to this repo for review.
+We could use this FOR EVERYTHING
 
+define a function for example
+```c
+label_example: 
+	
+branch label_example  // branch to label if args (top two values on stack) is equal so in this case it would
+goto end
 
-- dont be late!
+end:
+"Hello"
+print // prints 5 and pops it from stack
+"Hello"
+puts // prints hello
+"ABC" // pushes
+add "CBA" // removes 3 from stack and adds 6 to stack
+dup // duplicates it
+print // prints 6
+puts // prints ABCCBA
+```
+all strings are both numerical values and pointers
+and a function could be used as a number
 
-come hang out with some other language nerds and game dev nerds on our [discord codex](https://discord.gg/KwnGX8P)
+# END GOAL
+Rule 110. plain and simple.
