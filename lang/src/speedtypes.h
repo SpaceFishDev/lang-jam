@@ -58,7 +58,7 @@ list_node *linked_list_at(size_t index, linked_list *list)
 
 typedef struct
 {
-    size_t value;
+    void* value;
     char *key;
 } hash_map_element;
 
@@ -70,7 +70,7 @@ typedef struct
     size_t element_max;
 } hash_map;
 
-hash_map_element *init_element(size_t value, char *key)
+hash_map_element *init_element(void* value, char *key)
 {
     hash_map_element *h = malloc(sizeof(hash_map_element));
     *h = (hash_map_element){value, key};
@@ -107,7 +107,7 @@ hash_map_element *get_element(hash_map *hash, char *key)
     return element;
 }
 
-size_t get_value(hash_map *hash, char *key)
+void* get_value(hash_map *hash, char *key)
 {
     return get_element(hash, key)->value;
 }

@@ -58,7 +58,7 @@ typedef struct
 	char *arg; // optional.
 } instruction_t;
 
-#define add_ins (append_node(&instructions, initialize_node(instruction)))
+#define add_ins (append_node(&instructions, initialize_node(instruction)));
 #define current (llat(token_t, &tokens, i))
 
 char* read_file(char* path)
@@ -217,6 +217,19 @@ linked_list compile(linked_list tokens)
 				*instruction = (instruction_t){*current, iswap, ""};
 			}
 			break;
+			case LABEL:
+			{
+				size_t* insptr = malloc(sizeof(size_t)); 
+				*insptr = instructions.length;
+				hash_map_element* element = init_element(insptr, current->text);	
+				continue;
+			}
+			break;
+			case END:
+			{
+				return instructions;
+			}
+			break;
 			default:
 				{
 					*instruction = (instruction_t){*current, iprint, "test"};
@@ -240,4 +253,3 @@ int main(int argc, char **argv)
 		printf("%s\n", ins_to_string(llat(instruction_t, &instructions, i)->type));
 	}
 }
-
