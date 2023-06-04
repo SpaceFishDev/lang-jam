@@ -43,9 +43,13 @@ typedef enum
 	icompare,
 	istradd,
 	istrmul,
+	iprint,
+	iputs,
+	iswap,
+	idup,
 } instruction_type;
 
-#define ins_to_string(type) (((char*[]){"add", "mul", "div", "sub", "mod", "and", "or", "xor", "pop", "push", "jmp", "branch", "cmp", "str_add", "str_mul"})[type])
+#define ins_to_string(type) (((char*[]){"add", "mul", "div", "sub", "mod", "and", "or", "xor", "pop", "push", "jmp", "branch", "cmp", "str_add", "str_mul", "print", "puts", "swap", "dup"})[type])
 
 typedef struct
 {
@@ -99,6 +103,125 @@ linked_list compile(linked_list tokens)
 					*instruction = (instruction_t){*current, ipop, ""};
 				}
 			break;
+			case ADD:
+				{
+					*instruction = (instruction_t){*current, iadd, ""};
+					add_ins;
+					instruction = malloc(sizeof(instruction_t));
+					*instruction = (instruction_t){(token_t){0}, iswap, ""};
+					add_ins;
+					instruction = malloc(sizeof(instruction_t));
+					*instruction = (instruction_t){(token_t){0}, ipop, ""};
+				}
+			break;
+			case SUB:
+				{
+					*instruction = (instruction_t){*current, isub, ""};
+					add_ins;
+					instruction = malloc(sizeof(instruction_t));
+					*instruction = (instruction_t){(token_t){0}, iswap, ""};
+					add_ins;
+					instruction = malloc(sizeof(instruction_t));
+					*instruction = (instruction_t){(token_t){0}, ipop, ""};
+				}
+			break;
+			case DIV:
+				{
+					*instruction = (instruction_t){*current, idiv, ""};
+					add_ins;
+					instruction = malloc(sizeof(instruction_t));
+					*instruction = (instruction_t){(token_t){0}, iswap, ""};
+					add_ins;
+					instruction = malloc(sizeof(instruction_t));
+					*instruction = (instruction_t){(token_t){0}, ipop, ""};
+				}
+			break;
+			case MUL:
+				{
+					*instruction = (instruction_t){*current, imul, ""};
+					add_ins;
+					instruction = malloc(sizeof(instruction_t));
+					*instruction = (instruction_t){(token_t){0}, iswap, ""};
+					add_ins;
+					instruction = malloc(sizeof(instruction_t));
+					*instruction = (instruction_t){(token_t){0}, ipop, ""};
+				}
+			break;
+			case OR:
+				{
+					*instruction = (instruction_t){*current, ior, ""};
+					add_ins;
+					instruction = malloc(sizeof(instruction_t));
+					*instruction = (instruction_t){(token_t){0}, iswap, ""};
+					add_ins;
+					instruction = malloc(sizeof(instruction_t));
+					*instruction = (instruction_t){(token_t){0}, ipop, ""};
+				}
+			break;
+			case AND:
+				{
+					*instruction = (instruction_t){*current, iand, ""};
+					add_ins;
+					instruction = malloc(sizeof(instruction_t));
+					*instruction = (instruction_t){(token_t){0}, iswap, ""};
+					add_ins;
+					instruction = malloc(sizeof(instruction_t));
+					*instruction = (instruction_t){(token_t){0}, ipop, ""};
+				}
+			break;
+			case XOR:
+				{
+					*instruction = (instruction_t){*current, ixor, ""};
+					add_ins;
+					instruction = malloc(sizeof(instruction_t));
+					*instruction = (instruction_t){(token_t){0}, iswap, ""};
+					add_ins;
+					instruction = malloc(sizeof(instruction_t));
+					*instruction = (instruction_t){(token_t){0}, ipop, ""};
+				}
+			break;
+			case MOD:
+				{
+					*instruction = (instruction_t){*current, imod, ""};
+					add_ins;
+					instruction = malloc(sizeof(instruction_t));
+					*instruction = (instruction_t){(token_t){0}, iswap, ""};
+					add_ins;
+					instruction = malloc(sizeof(instruction_t));
+					*instruction = (instruction_t){(token_t){0}, ipop, ""};
+				}
+			break;
+			case PRINT:
+				{
+					*instruction = (instruction_t){*current, iprint, ""};
+					add_ins;
+					instruction = malloc(sizeof(instruction_t));
+					*instruction = (instruction_t){(token_t){0}, ipop, ""};
+				} 
+			break;
+			case PUTS:
+				{
+					*instruction = (instruction_t){*current, iputs, ""};
+					add_ins;
+					instruction = malloc(sizeof(instruction_t));
+					*instruction = (instruction_t){(token_t){0}, ipop, ""};
+				}
+			break;
+			case DUP:
+			{
+				*instruction = (instruction_t){*current, idup, ""};
+			}
+			break;
+			case SWAP:
+			{
+				*instruction = (instruction_t){*current, iswap, ""};
+			}
+			break;
+			default:
+				{
+					*instruction = (instruction_t){*current, iprint, "test"};
+				} 
+			break;
 		}
 		add_ins;
 	}
@@ -111,11 +234,6 @@ int main(int argc, char **argv)
 	char *fp_out = get_output_file_path(argv, argc);
 	char* input_file = read_file(fp);
 	linked_list tokens = scan_all_tokens(input_file);
-
-	for (size_t i = 0; i < tokens.length; ++i)
-	{
-		printf("%s\n", llat(token_t, &tokens, i)->text);
-	}
 	linked_list instructions = compile(tokens);
 	for(int i = 0; i < instructions.length; ++i)
 	{

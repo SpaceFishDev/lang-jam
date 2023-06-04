@@ -17,7 +17,6 @@ there are 3 characters, this denotes the numerical value of 3
 
 We could use this FOR EVERYTHING
 
-define a function for example
 ```c
 label_example: 
 	
@@ -35,8 +34,6 @@ dup // duplicates it
 print // prints 6
 puts // prints ABCCBA
 ```
-all strings are both numerical values and pointers
-and a function could be used as a number
 
 # END GOAL
 Rule 110. plain and simple.

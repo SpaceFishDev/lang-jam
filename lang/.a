@@ -1,4 +1,7 @@
-main:
-	"Hello, world!"
-	~print
-	
+	"abc"
+	"def"
+	dup
+	add
+	dup 
+	print // output should be 6
+	puts // output should be abcdef
